@@ -1,0 +1,74 @@
+/* Explorar oportunidades — busca por filtros. O quadro (board.css) continua como estava:
+   nada aqui redefine as classes dele. */
+
+/* 01. Layout
+   Barra lateral fixa no desktop, gaveta sobreposta no celular. */
+.explore { padding: 30px 0 40px; }
+.explore-layout { display: grid; grid-template-columns: 268px minmax(0, 1fr); gap: 20px; align-items: start; }
+.explore-sidebar { position: sticky; top: 16px; min-width: 0; border: 1px solid var(--line); border-radius: 7px; background: var(--white); }
+.explore-results { min-width: 0; }
+
+/* Enquanto a busca nova não chega, a lista anterior fica visível e apagada: trocar a tela
+   por um vazio a cada tecla digitada faz o filtro parecer quebrado. */
+.card-grid.is-stale { opacity: .55; transition: opacity .15s; }
+
+/* 02. Grupos de filtro */
+.filter-panel { padding: 16px; }
+.filter-group { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+.filter-group:last-of-type { border-bottom: 0; }
+.filter-group h3 { margin: 0 0 9px; color: var(--ink); font: 700 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.filter-hint { margin: 8px 0 0; color: var(--muted); font-size: 11px; line-height: 1.45; }
+.range-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+.range-row .field { margin-bottom: 0; }
+/* O botão de incremento do type="number" come ~16px de um campo que já tem ~110px. Some
+   a fórmula de trocar de ideia — o valor continua sendo digitado. */
+.range-row input::-webkit-outer-spin-button,
+.range-row input::-webkit-inner-spin-button { margin: 0; -webkit-appearance: none; appearance: none; }
+.range-row input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+
+/* 03. Opções
+   Botão que liga e desliga. O estado vai em aria-pressed, não só na cor. */
+.option-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.option { border: 1px solid var(--line); border-radius: 999px; padding: 6px 11px; color: var(--ink); background: var(--white); font: 600 12px var(--sans); cursor: pointer; text-align: left; }
+.option:hover { border-color: var(--blue-line); color: var(--blue); }
+.option.is-on { border-color: var(--ink); color: var(--white); background: var(--ink); }
+.ghost-button.full { width: 100%; }
+
+/* 04. Selos dos filtros ativos */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 16px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--blue-line); border-radius: 999px; padding: 5px 10px; color: var(--blue); background: var(--blue-wash); font: 600 12px var(--sans); cursor: pointer; }
+.chip:hover { border-color: var(--coral-line); color: var(--coral); background: var(--coral-wash); }
+.chip span[aria-hidden] { font-size: 14px; line-height: 1; }
+.chip-clear { border-color: var(--line); color: var(--muted); background: transparent; }
+
+/* 05. Filtros salvos */
+.preset-form { display: flex; gap: 6px; margin-bottom: 9px; }
+.preset-form input { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; color: var(--ink); background: var(--white); font: 13px var(--sans); }
+.preset-form input:focus { outline: 2px solid var(--blue-line); border-color: var(--blue); }
+.preset-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.preset-list li { display: flex; align-items: center; gap: 5px; }
+.preset { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; color: var(--ink); background: var(--white); font: 600 12px var(--sans); text-align: left; cursor: pointer; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.preset:hover { border-color: var(--blue-line); color: var(--blue); }
+.preset.is-on { border-color: var(--ink); color: var(--white); background: var(--ink); }
+.preset-remove { border: 0; border-radius: 6px; padding: 6px 9px; color: var(--muted); background: transparent; font-size: 15px; line-height: 1; cursor: pointer; }
+.preset-remove:hover { color: var(--coral); background: var(--coral-wash); }
+
+/* 06. Paginação */
+.pager { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 24px 0 4px; color: var(--muted); font: 12px var(--sans); }
+
+/* 07. Ordenação no topo
+   Seletor com as DUAS classes de propósito: assim estas regras ganham de .field
+   independentemente da ordem em que os arquivos entram no bundle. */
+.field.sort-field { margin-bottom: 0; }
+.field.sort-field select { min-width: 210px; }
+
+/* 09. Gaveta no celular */
+.drawer-toggle { display: none; }
+
+@media (max-width: 900px) {
+  .explore-layout { grid-template-columns: 1fr; }
+  .drawer-toggle { display: inline-block; }
+  .explore-sidebar { display: none; position: static; }
+  .explore-sidebar.is-open { display: block; margin-bottom: 16px; }
+  .field.sort-field select { min-width: 0; }
+}

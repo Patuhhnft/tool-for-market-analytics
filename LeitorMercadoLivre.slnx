@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LeitorMercadoLivre.Api/LeitorMercadoLivre.Api.csproj" />
+    <Project Path="src/LeitorMercadoLivre.Domain/LeitorMercadoLivre.Domain.csproj" />
+    <Project Path="src/LeitorMercadoLivre.Infrastructure/LeitorMercadoLivre.Infrastructure.csproj" />
+    <Project Path="src/LeitorMercadoLivre.Worker/LeitorMercadoLivre.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LeitorMercadoLivre.Infrastructure.Tests/LeitorMercadoLivre.Infrastructure.Tests.csproj" />
+    <Project Path="tests/LeitorMercadoLivre.Domain.Tests/LeitorMercadoLivre.Domain.Tests.csproj" />
+    <Project Path="tests/LeitorMercadoLivre.Api.Tests/LeitorMercadoLivre.Api.Tests.csproj" />
+  </Folder>
+</Solution>

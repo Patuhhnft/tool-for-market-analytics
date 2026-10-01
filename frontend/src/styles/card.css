@@ -1,0 +1,111 @@
+/* 01. Card */
+.product-card { display: flex; flex-direction: column; min-width: 0; padding: 18px; border: 1px solid var(--line); border-radius: 9px; background: var(--white); }
+.product-card.is-low-demand { background: var(--paper); }
+
+/* 02. Cabeçalho: produto, quadrante e índice */
+.card-header { display: flex; justify-content: space-between; gap: 12px; }
+.card-title { min-width: 0; }
+.card-title h3 { margin: 7px 0 0; color: var(--ink); font: 600 17px/1.25 var(--display); overflow-wrap: anywhere; }
+.card-score { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+.card-score strong { color: var(--ink); font: 600 26px/1 var(--display); cursor: help; }
+.card-score small { color: var(--muted); font: 9px var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+.quadrant { border-radius: 999px; padding: 3px 9px; font: 700 10px var(--sans); white-space: nowrap; }
+.quadrant-OpenWindow { color: var(--mint); background: var(--mint-wash); }
+.quadrant-Race { color: var(--blue); background: var(--blue-wash); }
+.quadrant-Saturating { color: var(--amber); background: var(--amber-wash); }
+.quadrant-EndOfCycle { color: var(--coral); background: var(--coral-wash); }
+
+/* 03. Por que vende agora */
+.why-now { margin: 12px 0 0; color: var(--ink); font-size: 13px; line-height: 1.5; }
+.competition { margin: 10px 0 0; color: var(--muted); font-size: 12px; }
+.competition strong { color: var(--ink); }
+
+/* 04. Blocos */
+.card-block { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.card-block h4 { margin: 0; color: var(--muted); font: 700 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.block-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.demand-headline { margin: 8px 0 0; color: var(--ink); font-size: 13px; }
+.demand-headline strong { font: 600 18px var(--display); }
+.delta-up { color: var(--mint); font-weight: 600; }
+.delta-down { color: var(--coral); font-weight: 600; }
+
+/* 05. Números do bloco de preço e margem
+   Rótulo à esquerda, valor à direita, na ordem do §9. */
+.figures { margin: 10px 0 0; }
+.figure-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 5px 0; }
+.figure-row dt { color: var(--muted); font-size: 12px; }
+.figure-row dd { margin: 0; color: var(--ink); font-size: 13px; text-align: right; }
+.figure-row.sub { padding-top: 0; }
+.figure-row.sub dt, .figure-row.sub dd { font-size: 11px; color: var(--muted); }
+.figure-row.highlight dd { font: 600 15px var(--display); }
+.figures.compact .figure-row { padding: 3px 0; }
+.figure-row.stacked { flex-direction: column; align-items: stretch; gap: 2px; }
+.figure-row.stacked dd { text-align: left; white-space: nowrap; }
+.big-number { font: 600 24px var(--display); }
+.value-negative { color: var(--coral) !important; }
+.trend { margin-left: 6px; font-size: 13px; cursor: help; }
+.trend-up { color: var(--mint); }
+.trend-down { color: var(--coral); }
+.trend-flat { color: var(--muted); }
+
+/* 06. Pior margem da faixa
+   É ela que decide a compra: fica destacada, e em alerta abaixo da margem-alvo. */
+.figure-row.worst { margin: 6px -10px 0; padding: 8px 10px; border-radius: 6px; }
+.figure-row.worst dd { display: flex; flex-direction: column; align-items: flex-end; font: 600 15px var(--display); }
+.figure-row.worst small { font: 400 10px var(--sans); }
+.figure-row.worst.is-alert { background: var(--coral-wash); }
+.figure-row.worst.is-alert dt, .figure-row.worst.is-alert dd { color: var(--coral); }
+.figure-row.worst.is-ok { background: var(--mint-wash); }
+.figure-row.worst.is-ok dt, .figure-row.worst.is-ok dd { color: var(--mint); }
+
+/* 07. Memória de cálculo */
+.memo { margin-top: 10px; font-size: 11px; }
+.memo summary { color: var(--blue); cursor: pointer; font-weight: 600; }
+.memo table { width: 100%; margin: 8px 0; border-collapse: collapse; }
+.memo th, .memo td { padding: 4px 6px 4px 0; border-bottom: 1px solid var(--soft); text-align: left; vertical-align: top; }
+.memo th { color: var(--ink); font-weight: 600; }
+.memo td:nth-child(2) { white-space: nowrap; text-align: right; }
+.memo td:nth-child(3) { color: var(--muted); font-family: var(--mono); font-size: 10px; }
+.memo p { margin: 6px 0 0; color: var(--muted); line-height: 1.5; }
+
+/* 08. Fornecedores */
+.supplier-list { margin: 8px 0 0; padding: 0; list-style: none; }
+.supplier-list li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--soft); }
+.supplier-list strong { display: block; font-size: 13px; }
+.supplier-list span { color: var(--muted); font-size: 11px; }
+.supplier-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.contact-button { border-radius: 6px; padding: 6px 10px; color: var(--white); background: var(--ink); font: 600 11px var(--sans); text-decoration: none; }
+.contact-button.whatsapp { background: var(--mint); }
+.supplier-form { margin-top: 10px; }
+.supplier-search { margin: 0 0 8px; color: var(--muted); font-size: 11px; }
+.supplier-search a { color: var(--blue); font-weight: 600; }
+
+/* 09. Rodapé do card */
+.card-footer { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--soft); color: var(--muted); font: 10px var(--mono); }
+
+/* Teto de compra
+   O número que responde "quanto posso pagar". Destacado porque, sem fornecedor cadastrado,
+   é a única coisa acionável do card — e é o que se leva para negociar. */
+.ceiling-block { border-color: var(--blue-line); background: var(--blue-wash); }
+.ceiling-headline { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; margin: 0 0 6px; }
+.ceiling-headline strong { color: var(--ink); font: 600 30px/1 var(--display); }
+.ceiling-headline span { color: var(--muted); font-size: 12px; }
+
+/* Selo de estreia
+   Demanda nova com volume: o produto não existia na semana anterior. Fica ao lado do
+   quadrante porque é a informação que o percentual escondia — antes não havia nada. */
+.quadrant-Debut { color: var(--white); background: var(--blue); }
+
+/* Dá tempo de importar?
+   Fica acima do teto de compra de propósito: de nada adianta saber quanto pagar por um
+   produto que estará morto quando a caixa chegar. */
+.runway-block.is-open { border-color: var(--mint); }
+.runway-block.is-closed { border-color: var(--coral-line); background: var(--coral-wash); }
+.runway-headline { margin: 0 0 8px; color: var(--ink); font-size: 13px; }
+.runway-headline strong { font: 600 20px var(--display); }
+.channel-list { list-style: none; margin: 0 0 8px; padding: 0; display: flex; flex-direction: column; gap: 3px; }
+.channel-list li { display: flex; justify-content: space-between; gap: 10px; font-size: 12px; }
+.channel-verdict { white-space: nowrap; font: 11px var(--mono); }
+.channel-list li.is-fit .channel-verdict { color: var(--mint); }
+.channel-list li.is-unfit .channel-verdict { color: var(--coral); }
+.channel-list li.is-unknown .channel-verdict { color: var(--muted); }

@@ -1,0 +1,501 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Configuração do Leitor do Mercado Livre",
+  "description": "Todo arquivo .json desta pasta segue este formato. Nada é sobrescrito: mudança é uma versão nova com 'vigenteDesde'. Arquivo com qualquer erro é ignorado inteiro e aparece na área do administrador.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "tributos": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tributo"
+      }
+    },
+    "parametros": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/parametros"
+      }
+    }
+  },
+  "$defs": {
+    "fracao": {
+      "type": "number",
+      "minimum": 0,
+      "exclusiveMaximum": 1,
+      "description": "Fração: 0.18 = 18%."
+    },
+    "data": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "description": "AAAA-MM-DD"
+    },
+    "faixa": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "aliquota"
+      ],
+      "properties": {
+        "ateUsd": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Teto da faixa em US$ (valor aduaneiro da remessa, inclusive). Omitir só na última faixa, para 'sem teto'."
+        },
+        "aliquota": {
+          "$ref": "#/$defs/fracao"
+        },
+        "deducaoUsd": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Dedução fixa por remessa, em US$."
+        }
+      }
+    },
+    "tributo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "regime",
+        "vigenteDesde",
+        "faixasImpostoImportacao",
+        "icms",
+        "fonte"
+      ],
+      "properties": {
+        "regime": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Nome do regime. Os parâmetros apontam para ele por este nome."
+        },
+        "vigenteDesde": {
+          "$ref": "#/$defs/data"
+        },
+        "vigenteAte": {
+          "$ref": "#/$defs/data"
+        },
+        "faixasImpostoImportacao": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/faixa"
+          },
+          "description": "Faixas em ordem crescente de teto."
+        },
+        "ipi": {
+          "$ref": "#/$defs/fracao"
+        },
+        "pis": {
+          "$ref": "#/$defs/fracao"
+        },
+        "cofins": {
+          "$ref": "#/$defs/fracao"
+        },
+        "icms": {
+          "$ref": "#/$defs/fracao",
+          "description": "Calculado por dentro."
+        },
+        "estado": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "fonte": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Obrigatória: de onde saiu cada número (norma, URL, data da consulta)."
+        },
+        "observacao": {
+          "type": "string"
+        }
+      }
+    },
+    "parametros": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vigenteDesde",
+        "regimeImportacao",
+        "impostoSobreVenda",
+        "margemAlvo",
+        "spreadCambial",
+        "tipoAnuncio",
+        "limiarFreteGratis",
+        "faixasTarifaFixa",
+        "freteAbsorvidoPorUnidade",
+        "freteNacionalPorRemessa",
+        "categorias"
+      ],
+      "properties": {
+        "vigenteDesde": {
+          "$ref": "#/$defs/data"
+        },
+        "regimeImportacao": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impostoSobreVenda": {
+          "$ref": "#/$defs/fracao",
+          "description": "Imposto do seu regime sobre a venda. MEI = 0 (DAS fixo)."
+        },
+        "margemAlvo": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "spreadCambial": {
+          "type": "number",
+          "minimum": 0,
+          "description": "IOF + spread do meio de pagamento, somado à PTAX no que é pago no exterior."
+        },
+        "tipoAnuncio": {
+          "type": "string",
+          "enum": [
+            "gold_special",
+            "gold_pro"
+          ],
+          "description": "gold_special = Clássico; gold_pro = Premium."
+        },
+        "limiarFreteGratis": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "faixasTarifaFixa": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 1
+          }
+        },
+        "freteAbsorvidoPorUnidade": {
+          "type": "number",
+          "minimum": 0
+        },
+        "freteNacionalPorRemessa": {
+          "type": "number",
+          "minimum": 0
+        },
+        "despesasAduaneirasPorRemessa": {
+          "type": "number",
+          "minimum": 0
+        },
+        "categorias": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^MLB\\d+$"
+          }
+        },
+        "categoriasExcluidas": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^MLB\\d+$"
+          }
+        },
+        "finalistasPorCiclo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "candidatosPorCiclo": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "anunciosPorProdutoNaSerie": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "demanda": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pisoSemanal": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "meiaEscalaVolume": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "meiaEscalaTaxa": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "janelaPersistenciaSemanas": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "meiaEscalaPosicao": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "baseMinimaParaTaxa": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Visitas minimas na semana anterior para o percentual de crescimento valer."
+            },
+            "crescimentoExplodindo": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "description": "Crescimento em % a partir do qual o produto conta como explodindo."
+            },
+            "visitasMinimasDemandaNova": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Visitas na semana para demanda nova contar como explodindo."
+            }
+          }
+        },
+        "modeloPreco": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "limiteBaldeInteiro": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "degrauBaldeAcima": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "corteExtremos": {
+              "type": "number",
+              "minimum": 0,
+              "exclusiveMaximum": 0.5
+            },
+            "amostraMinimaCorte": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "forcaMinimaModa": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minimoVendedoresModa": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "oportunidade": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "pesoQuedaPreco": {
+              "type": "number",
+              "minimum": 0
+            },
+            "pesoDispersao": {
+              "type": "number",
+              "minimum": 0
+            },
+            "pesoQuedaForcaModa": {
+              "type": "number",
+              "minimum": 0
+            },
+            "limiarDemandaSubindo": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "limiarConcorrenciaAquecida": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "observacao": {
+          "type": "string"
+        },
+        "toleranciaSetaTendencia": {
+          "type": "number",
+          "minimum": 0,
+          "exclusiveMaximum": 1,
+          "description": "Variação semanal do preço abaixo da qual a seta mostra estável (—). 0.01 = 1%."
+        },
+        "anunciosMedidosPorProduto": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Anuncios por produto que tem as visitas medidas. Cada um custa uma chamada."
+        },
+        "canaisDeFornecimento": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/canalDeFornecimento"
+          },
+          "description": "Canais e prazos. Provisórios: vêm do que cada fornecedor promete."
+        },
+        "janelaMinimaVendaDias": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 365,
+          "description": "Dias de venda que precisam sobrar DEPOIS da chegada para valer a pena importar. Chegar no último dia da janela é estoque parado."
+        },
+        "runway": {
+          "$ref": "#/$defs/runway"
+        },
+        "tamanhosDeKit": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 100
+          },
+          "uniqueItems": true,
+          "description": "Tamanhos de kit a avaliar. A tarifa fixa do ML é por VENDA, então o kit dilui o que avulso inviabiliza."
+        },
+        "certificacoes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/certificacao"
+          },
+          "description": "Indício de certificação por categoria. Sem ela o anúncio pode ser pausado e a carga retida — prejuízo total, não margem menor."
+        },
+        "custosPorCategoria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/custoDeCategoria"
+          },
+          "description": "Embalagem e quebra por categoria. Provisórios: só se calibram com a sua taxa real de devolução."
+        }
+      }
+    },
+    "canalDeFornecimento": {
+      "type": "object",
+      "description": "Um jeito de a mercadoria chegar, com o prazo que ele leva. É o eixo do tempo: você não vende hoje, vende na chegada.",
+      "additionalProperties": false,
+      "required": [
+        "nome",
+        "prazoDias"
+      ],
+      "properties": {
+        "nome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "prazoDias": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 365,
+          "description": "Prazo típico até a porta, em dias. O portão de importação usa este número."
+        },
+        "importado": {
+          "type": "boolean",
+          "description": "Se passa pela tributação de importação. Revenda nacional não passa."
+        },
+        "observacao": {
+          "type": "string"
+        }
+      }
+    },
+    "certificacao": {
+      "type": "object",
+      "description": "Certificação que a categoria costuma exigir. É INDÍCIO para perguntar ao despachante, nunca parecer: dentro de uma mesma categoria há item que precisa de selo e item que não precisa.",
+      "additionalProperties": false,
+      "required": [
+        "categoria",
+        "orgao",
+        "observacao"
+      ],
+      "properties": {
+        "categoria": {
+          "type": "string",
+          "pattern": "^MLB[0-9]+$"
+        },
+        "orgao": {
+          "type": "string",
+          "enum": [
+            "Inmetro",
+            "Anvisa",
+            "Anatel"
+          ],
+          "description": "Órgão desconhecido faz a linha ser ignorada, não derruba a configuração: um aviso a menos não pode parar a coleta."
+        },
+        "observacao": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "custoDeCategoria": {
+      "type": "object",
+      "description": "Embalagem e quebra por categoria — dois custos que a margem ignorava.",
+      "additionalProperties": false,
+      "required": [
+        "categoria"
+      ],
+      "properties": {
+        "categoria": {
+          "type": "string",
+          "pattern": "^MLB[0-9]+$"
+        },
+        "embalagemPorUnidade": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Custo de embalar uma unidade, em R$. É FIXO: pesa muito mais em produto barato."
+        },
+        "reservaQuebra": {
+          "$ref": "#/$defs/fracao",
+          "exclusiveMaximum": 1,
+          "description": "Fração que quebra, extravia ou volta. O custo por venda é dividido por (1 − esta fração), não multiplicado."
+        },
+        "observacao": {
+          "type": "string"
+        }
+      }
+    },
+    "runway": {
+      "type": "object",
+      "description": "Faixas de runway por fase da curva, em semanas. O portão de importação usa sempre o limite INFERIOR.",
+      "additionalProperties": false,
+      "properties": {
+        "diasMinimosDeSerie": {
+          "type": "integer",
+          "minimum": 7,
+          "description": "Dias de série necessários para arriscar uma classificação. Abaixo disso a fase é desconhecida."
+        },
+        "acelerandoDe": {
+          "type": "number",
+          "minimum": 0
+        },
+        "acelerandoAte": {
+          "type": "number",
+          "minimum": 0
+        },
+        "linearDe": {
+          "type": "number",
+          "minimum": 0
+        },
+        "linearAte": {
+          "type": "number",
+          "minimum": 0
+        },
+        "desacelerandoDe": {
+          "type": "number",
+          "minimum": 0
+        },
+        "desacelerandoAte": {
+          "type": "number",
+          "minimum": 0
+        },
+        "caindoDe": {
+          "type": "number",
+          "minimum": 0
+        },
+        "caindoAte": {
+          "type": "number",
+          "minimum": 0
+        },
+        "toleranciaEstavel": {
+          "$ref": "#/$defs/fracao",
+          "description": "Variação entre metades abaixo da qual a curva conta como estável. Sem ela, ruído de um dia viraria diagnóstico de fase."
+        }
+      }
+    }
+  }
+}

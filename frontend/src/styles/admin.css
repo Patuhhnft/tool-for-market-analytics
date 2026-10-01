@@ -1,0 +1,42 @@
+/* 01. Chave do administrador */
+.admin-key { display: flex; flex-direction: column; gap: 4px; }
+.admin-key span { color: var(--muted); font: 700 9px var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.admin-key input { width: 220px; border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; font: 13px var(--sans); }
+
+/* 02. Resumo do que vale hoje */
+.admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.admin-card { min-width: 0; margin-bottom: 14px; padding: 18px; border: 1px solid var(--line); border-radius: 9px; background: var(--white); }
+.admin-grid .admin-card { margin-bottom: 0; }
+.admin-card h3 { margin: 8px 0 10px; font: 600 18px var(--display); }
+.admin-card p { margin: 6px 0 0; font-size: 12px; line-height: 1.5; }
+.admin-card .source { color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+.admin-card .note { color: var(--amber); font-size: 11px; }
+.brackets { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.7; }
+.param-list div { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; border-bottom: 1px solid var(--soft); font-size: 12px; }
+.param-list dt { color: var(--muted); }
+.param-list dd { margin: 0; text-align: right; overflow-wrap: anywhere; }
+
+/* 03. Arquivos da pasta
+   Arquivo rejeitado aparece inteiro em alerta: nada dele foi aplicado. */
+.files-table { width: 100%; margin-top: 10px; border-collapse: collapse; font-size: 12px; }
+.files-table th { padding: 6px 8px 6px 0; color: var(--muted); font: 700 9px var(--mono); letter-spacing: .08em; text-align: left; text-transform: uppercase; }
+.files-table td { padding: 8px 8px 8px 0; border-top: 1px solid var(--soft); vertical-align: top; }
+.files-table small { color: var(--muted); }
+.files-table a { color: var(--blue); }
+.files-table tr.is-rejected td { background: var(--coral-wash); }
+.file-errors { margin: 6px 0 0; padding-left: 16px; color: var(--coral); font-size: 11px; line-height: 1.5; }
+
+/* 04. Formulários de nova versão */
+.admin-open { margin: 0 8px 14px 0; }
+.bracket-table { border-collapse: collapse; margin: 4px 0 8px; font-size: 12px; }
+.bracket-table th { padding: 4px 8px 4px 0; color: var(--muted); font: 700 9px var(--mono); text-align: left; text-transform: uppercase; }
+.bracket-table td { padding: 3px 8px 3px 0; }
+.bracket-table input { width: 120px; border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font: 13px var(--sans); }
+.admin-card.wide code { color: var(--blue); font: 11px var(--mono); }
+
+/* 05. Responsividade */
+@media (max-width: 720px) {
+  .admin-grid { grid-template-columns: 1fr; }
+  .admin-key input { width: 100%; }
+  .files-table { display: block; overflow-x: auto; }
+}

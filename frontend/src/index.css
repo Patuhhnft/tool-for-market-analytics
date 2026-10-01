@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  --ink: #15212b;
+  --muted: #71808b;
+  --paper: #f5f7f5;
+  --white: #fff;
+  --soft: #e9eeeb;
+  --line: #d9e0dc;
+  --blue: #1977a8;
+  --blue-wash: #e5f2f6;
+  --blue-line: #a8d4e1;
+  --coral-line: #e5b2a7;
+  --mint: #238363;
+  --mint-wash: #e1f1e9;
+  --coral: #c85e4f;
+  --coral-wash: #f9e8e2;
+  /* Atenção: selos de "preço instável", "amostra pequena", "demanda baixa". Sempre com texto. */
+  --amber: #8a5a0b;
+  --amber-wash: #fbf0d9;
+  --sans: 'DM Sans', sans-serif;
+  --display: 'Space Grotesk', sans-serif;
+  --mono: 'DM Mono', monospace;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; }
+
+/* Só para leitor de tela: sai da tela sem sair da árvore de acessibilidade.
+   Aplique sempre num <div> que embrulhe o conteúdo, nunca direto numa <table>: por
+   especificação a largura usada de uma tabela nunca fica abaixo do conteúdo mínimo dela,
+   então o width: 1px é ignorado e a tabela estica o documento inteiro. */
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+body { min-width: 320px; margin: 0; }
+button { font: inherit; }

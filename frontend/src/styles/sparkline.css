@@ -1,0 +1,24 @@
+/* 01. Moldura
+   Série única: sem legenda, o título do bloco nomeia a série. */
+.sparkline { position: relative; margin: 10px 0 0; padding-top: 22px; }
+.sparkline svg { display: block; width: 100%; height: auto; overflow: visible; touch-action: none; }
+.sparkline-empty { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+
+/* 02. Marcas
+   Linha de 2px com pontas arredondadas; área em lavado da mesma cor; eixo recessivo. */
+.sparkline-baseline { stroke: var(--line); stroke-width: 1; }
+.sparkline-divider { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 3; }
+.sparkline-area { fill: var(--blue-wash); }
+.sparkline-line { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.sparkline-marker { fill: var(--blue); stroke: var(--white); stroke-width: 2; }
+.sparkline-crosshair { stroke: var(--muted); stroke-width: 1; }
+.sparkline-hit { fill: transparent; cursor: crosshair; }
+
+/* 03. Rótulo do ponto em foco
+   Texto em tinta de texto, nunca na cor da série. Por padrão mostra o último dia; no hover,
+   o dia apontado. Fica fixo no canto para nunca vazar da caixa. */
+.sparkline-caption { position: absolute; top: 0; right: 0; color: var(--muted); font: 10px var(--mono); white-space: nowrap; pointer-events: none; }
+.sparkline-caption strong { color: var(--ink); font-weight: 500; }
+
+/* 04. Acessibilidade
+   Tabela com os números para leitor de tela: a cor nunca é o único meio de leitura. */

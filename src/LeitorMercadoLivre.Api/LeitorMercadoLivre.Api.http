@@ -1,0 +1,19 @@
+@api = http://localhost:5078
+
+### Cards do último ciclo concluído
+GET {{api}}/api/products
+
+### Um produto
+GET {{api}}/api/products/MLB54982411
+
+### Histórico de ciclos
+GET {{api}}/api/cycles
+
+### Coletar agora (área do administrador)
+POST {{api}}/api/cycles/run
+
+### Configuração vigente, arquivos e erros de validação
+GET {{api}}/api/admin/config
+
+### Diagnóstico de endpoints do Mercado Livre
+GET {{api}}/api/diagnostics/mercadolivre

@@ -1,0 +1,33 @@
+/* Barra de pesquisa — área "Explorar"
+   Duas fontes com custos diferentes, e a tela deixa isso visível: o histórico aparece
+   sozinho enquanto se digita; o catálogo só sai num botão, com o custo escrito ao lado. */
+
+.searchbar { margin-bottom: 18px; }
+.searchbar-input { position: relative; }
+.searchbar-input input { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 7px; padding: 12px 38px 12px 14px; color: var(--ink); background: var(--white); font: 15px var(--sans); }
+.searchbar-input input:focus { outline: 2px solid var(--blue-line); border-color: var(--blue); }
+/* O type="search" traz um "x" nativo que duplicaria o nosso, e que some quando o campo perde
+   o foco. O nosso fica sempre no mesmo lugar, então o nativo sai. */
+.searchbar-input input::-webkit-search-cancel-button { appearance: none; -webkit-appearance: none; }
+.searchbar-clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); border: 0; border-radius: 6px; padding: 5px 9px; color: var(--muted); background: transparent; font-size: 17px; line-height: 1; cursor: pointer; }
+.searchbar-clear:hover { color: var(--coral); background: var(--coral-wash); }
+
+/* Blocos de resultado */
+.searchbar-block { margin-top: 12px; }
+.searchbar-block h4 { margin: 0 0 7px; color: var(--muted); font: 700 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.search-results { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.search-results li { display: flex; align-items: center; gap: 8px; }
+.search-results li > button:first-child,
+.search-candidate { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left; }
+.search-results li > button:first-child { border: 1px solid var(--line); border-radius: 7px; padding: 9px 12px; background: var(--white); cursor: pointer; }
+.search-results li > button:first-child:hover { border-color: var(--blue-line); }
+.search-name { color: var(--ink); font: 600 13px var(--sans); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+.search-meta { color: var(--muted); font: 11px var(--mono); }
+
+/* A ação que custa chamada vem com o preço escrito do lado. */
+.searchbar-catalog { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.searchbar-catalog small { color: var(--muted); font-size: 11px; }
+
+@media (max-width: 720px) {
+  .search-results li { flex-wrap: wrap; }
+}

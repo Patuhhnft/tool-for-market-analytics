@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>dotnet-LeitorMercadoLivre.Worker-ca452c97-4dfb-4f11-82e4-e97e8f447d34</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hangfire.NetCore" Version="1.8.25" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LeitorMercadoLivre.Domain\LeitorMercadoLivre.Domain.csproj" />
+    <ProjectReference Include="..\LeitorMercadoLivre.Infrastructure\LeitorMercadoLivre.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

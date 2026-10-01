@@ -1,0 +1,198 @@
+{
+  "$schema": "./configuracoes.schema.json",
+  "tributos": [
+    {
+      "regime": "Remessa Conforme — pessoa física",
+      "vigenteDesde": "2026-05-12",
+      "faixasImpostoImportacao": [
+        {
+          "ateUsd": 50,
+          "aliquota": 0
+        },
+        {
+          "ateUsd": 3000,
+          "aliquota": 0.6,
+          "deducaoUsd": 30
+        }
+      ],
+      "icms": 0.2,
+      "fonte": "Receita Federal, 'Novas Regras' de remessas (https://www.gov.br/receitafederal/pt-br/assuntos/aduana-e-comercio-exterior/manuais/remessas-postal-e-expressa/regras-futuras), consultado em 24/09/2026 e reconferido em 25/09/2026: desde 12/05/2026, site certificado — até US$ 50 II 0%; de US$ 50,01 a US$ 3.000 II 60% com dedução de US$ 30; base = produto + frete + seguro; ICMS por dentro de 17% a 20% conforme o estado. Mudança pela Portaria MF 1.342/2026 (Econet, https://blog.econeteditora.com.br/remessa-conforme-o-que-muda-com-a-portaria-mf-1-342-2026/). A alíquota zero até US$ 50 deixou de depender de medida provisória: virou lei com a Lei 15.502, de 10/09/2026 (conversão da MP 1.357/2026), https://www2.camara.leg.br/legin/fed/lei/2026/lei-15502-10-setembro-2026-799916-publicacaooriginal-181312-pl.html",
+      "observacao": "ICMS em 20% é o TETO da faixa 17–20%, escolhido por ser o conservador: ajuste para a alíquota do seu estado. A alíquota zero até US$ 50 vale só para pessoa física. ATENÇÃO (25/09/2026): a Lei 15.502/2026 autoriza o Ministro da Fazenda a reduzir por portaria o II da faixa até US$ 3.000 de 60% para até 30%. Até hoje nenhuma portaria fez isso e a Portaria MF 1.342/2026 mantém os 60%, então o valor 0.60 segue correto. Se a portaria sair, revise o 0.60 dos três regimes."
+    },
+    {
+      "regime": "Remessa Conforme — pessoa jurídica",
+      "vigenteDesde": "2026-05-12",
+      "faixasImpostoImportacao": [
+        {
+          "ateUsd": 3000,
+          "aliquota": 0.6
+        }
+      ],
+      "icms": 0.2,
+      "fonte": "Econet sobre a Portaria MF 1.342/2026 (https://blog.econeteditora.com.br/remessa-conforme-o-que-muda-com-a-portaria-mf-1-342-2026/), consultado em 24/09/2026 e reconferido em 25/09/2026: 'a isenção do II para compras de até US$ 50,00 se aplica exclusivamente a pessoas físicas'; pessoa jurídica permanece nos 60%.",
+      "observacao": "As fontes consultadas não confirmam se a dedução de US$ 30 vale para pessoa jurídica: foi usada dedução zero, o cenário conservador. Confirme com seu contador. ICMS em 20% pelo mesmo motivo do regime de pessoa física."
+    },
+    {
+      "regime": "Fora do Remessa Conforme",
+      "vigenteDesde": "2026-05-12",
+      "faixasImpostoImportacao": [
+        {
+          "ateUsd": 3000,
+          "aliquota": 0.6
+        }
+      ],
+      "icms": 0.2,
+      "fonte": "Receita Federal, 'Novas Regras' de remessas, consultado em 24/09/2026 e reconferido em 25/09/2026: site não certificado — de US$ 0,01 a US$ 3.000 II 60% sem dedução.",
+      "observacao": "Acima de US$ 3.000 a remessa sai do regime simplificado: importação formal, com II e IPI por NCM. Crie um regime próprio quando tiver o NCM do produto."
+    }
+  ],
+  "parametros": [
+    {
+      "vigenteDesde": "2026-09-24",
+      "regimeImportacao": "Remessa Conforme — pessoa física",
+      "impostoSobreVenda": 0.06,
+      "margemAlvo": 0.3,
+      "spreadCambial": 0.06,
+      "tipoAnuncio": "gold_special",
+      "limiarFreteGratis": 79,
+      "faixasTarifaFixa": [
+        29,
+        50,
+        79
+      ],
+      "freteAbsorvidoPorUnidade": 20,
+      "freteNacionalPorRemessa": 50,
+      "despesasAduaneirasPorRemessa": 0,
+      "categorias": [
+        "MLB1051",
+        "MLB1000",
+        "MLB1648",
+        "MLB1276",
+        "MLB1574",
+        "MLB1132"
+      ],
+      "categoriasExcluidas": [
+        "MLB1459",
+        "MLB1540",
+        "MLB218519",
+        "MLB1743"
+      ],
+      "finalistasPorCiclo": 20,
+      "candidatosPorCiclo": 40,
+      "anunciosPorProdutoNaSerie": 5,
+      "anunciosMedidosPorProduto": 12,
+      "toleranciaSetaTendencia": 0.01,
+      "demanda": {
+        "pisoSemanal": 300,
+        "meiaEscalaVolume": 500,
+        "meiaEscalaTaxa": 0.5,
+        "janelaPersistenciaSemanas": 4,
+        "meiaEscalaPosicao": 5,
+        "baseMinimaParaTaxa": 50,
+        "crescimentoExplodindo": 300,
+        "visitasMinimasDemandaNova": 500
+      },
+      "observacao": "PROVISÓRIOS até você confirmar: impostoSobreVenda (6% é conservador; MEI = 0, Simples Anexo I 1ª faixa = 4%), freteAbsorvidoPorUnidade (depende de peso e medida), freteNacionalPorRemessa, e os pisos de demanda (calibrar depois de alguns ciclos). Os pontos de 'faixasTarifaFixa' são onde a tarifa fixa do ML muda; o VALOR de cada faixa é consultado na própria API. PRAZOS E FAIXAS DE RUNWAY são PROVISÓRIOS: os prazos vêm do que cada fornecedor promete, e as faixas de runway só se calibram depois de alguns ciclos vendo produtos saturarem de verdade. O portão de importação usa sempre o limite INFERIOR do runway. EMBALAGEM E QUEBRA são PROVISÓRIOS: os valores por categoria são chute conservador e só se calibram com a sua taxa real de devolução e o custo real da sua caixa. CERTIFICAÇÕES são INDÍCIO por categoria, não parecer — confirme com o despachante antes de fechar compra.",
+      "canaisDeFornecimento": [
+        {
+          "nome": "Revenda nacional",
+          "prazoDias": 5,
+          "importado": false,
+          "observacao": "Estoque já no Brasil ou dropship nacional. Não passa por tributação de importação."
+        },
+        {
+          "nome": "Importação aérea (Remessa Conforme)",
+          "prazoDias": 25,
+          "importado": true,
+          "observacao": "Faixa real de 12 a 35 dias; 25 é o meio. Ajuste pelo prazo que o seu fornecedor promete."
+        },
+        {
+          "nome": "Importação marítima (formal)",
+          "prazoDias": 60,
+          "importado": true,
+          "observacao": "45 a 90 dias com desembaraço. Só vale para lote grande e produto de janela longa."
+        }
+      ],
+      "janelaMinimaVendaDias": 30,
+      "runway": {
+        "diasMinimosDeSerie": 14,
+        "acelerandoDe": 6,
+        "acelerandoAte": 16,
+        "linearDe": 3,
+        "linearAte": 8,
+        "desacelerandoDe": 1,
+        "desacelerandoAte": 4,
+        "caindoDe": 0,
+        "caindoAte": 2,
+        "toleranciaEstavel": 0.05
+      },
+      "tamanhosDeKit": [
+        2,
+        3,
+        5,
+        10
+      ],
+      "certificacoes": [
+        {
+          "categoria": "MLB1132",
+          "orgao": "Inmetro",
+          "observacao": "Brinquedo exige certificação compulsória do Inmetro. Sem o selo o anúncio pode ser pausado e a carga retida. Peça o certificado ao fornecedor ANTES de fechar."
+        },
+        {
+          "categoria": "MLB1000",
+          "orgao": "Anatel",
+          "observacao": "Eletrônico com Bluetooth, Wi-Fi ou controle remoto exige homologação da Anatel. Vale para fone, caixa de som e afins."
+        },
+        {
+          "categoria": "MLB1051",
+          "orgao": "Anatel",
+          "observacao": "Celular e acessório com rádio exigem homologação da Anatel."
+        },
+        {
+          "categoria": "MLB1648",
+          "orgao": "Anatel",
+          "observacao": "Periférico sem fio (mouse, teclado, roteador) exige homologação da Anatel."
+        },
+        {
+          "categoria": "MLB1574",
+          "orgao": "Anvisa",
+          "observacao": "Utensílio em contato com alimento (pote, marmita, garrafa) pode exigir registro na Anvisa. Confirme pelo material."
+        }
+      ],
+      "custosPorCategoria": [
+        {
+          "categoria": "MLB1574",
+          "embalagemPorUnidade": 2.5,
+          "reservaQuebra": 0.08,
+          "observacao": "Vidro e cerâmica quebram no transporte: 8% é chute conservador, calibre com a sua taxa real de devolução."
+        },
+        {
+          "categoria": "MLB1000",
+          "embalagemPorUnidade": 1.5,
+          "reservaQuebra": 0.03,
+          "observacao": "Eletrônico volta mais por defeito que por quebra."
+        },
+        {
+          "categoria": "MLB1051",
+          "embalagemPorUnidade": 1.5,
+          "reservaQuebra": 0.03
+        },
+        {
+          "categoria": "MLB1648",
+          "embalagemPorUnidade": 1.5,
+          "reservaQuebra": 0.03
+        },
+        {
+          "categoria": "MLB1132",
+          "embalagemPorUnidade": 1.2,
+          "reservaQuebra": 0.02
+        },
+        {
+          "categoria": "MLB1276",
+          "embalagemPorUnidade": 1.8,
+          "reservaQuebra": 0.02
+        }
+      ]
+    }
+  ]
+}

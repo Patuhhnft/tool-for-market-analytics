@@ -1,0 +1,30 @@
+# Banco local de desenvolvimento.
+#   subir:    docker compose up -d
+#   parar:    docker compose stop
+#   apagar:   docker compose down -v   (o -v apaga os dados)
+#
+# A senha abaixo só existe neste contêiner local, sem dado real. Em qualquer outro ambiente
+# a connection string vem de variável de ambiente (ConnectionStrings__Leitor).
+services:
+  postgres:
+    # 17 fixado de propósito: a imagem 18 mudou o layout do diretório de dados.
+    image: postgres:17
+    container_name: leitor-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: leitor
+      POSTGRES_USER: leitor
+      POSTGRES_PASSWORD: leitor_dev
+    ports:
+      # Só na interface local: o banco não fica visível para a rede.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - leitor-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U leitor -d leitor"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  leitor-pgdata:

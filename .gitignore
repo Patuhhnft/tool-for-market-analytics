@@ -1,0 +1,31 @@
+# Resultado de compilação: é gerado por `dotnet build`, não é fonte. Estava versionado
+# até aqui (1118 arquivos), o que inchava o repo e provocava conflito em cada merge.
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+TestResults/
+*.user
+.vs/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/.vite/
+
+# Segredos NUNCA entram aqui. O ClientSecret e os tokens do Mercado Livre vivem em
+# `dotnet user-secrets` (fora da pasta do projeto) e no Postgres. Estas linhas são rede
+# de proteção para o caso de alguém criar um arquivo desses por engano.
+appsettings.*.local.json
+secrets.json
+.env
+.env.*
+*.pfx
+*.pem
+*.key
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
